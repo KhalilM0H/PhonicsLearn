@@ -110,7 +110,7 @@ npm run db:seed
 npm run dev
 
 Visit http://localhost:3000 to see the app running.
-
+```
 Project Structure
 phonicslearn/
 ├── client/                 # React frontend
