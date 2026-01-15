@@ -152,64 +152,64 @@ phonicslearn/
 
 ### Phase 2: Core Enhancement 
 #### [ ] Database Integration
-##### PostgreSQL setup with Prisma
-##### User management (CRUD)
-##### Exercise attempt logging
-##### Progress persistence
+##### ( ) PostgreSQL setup with Prisma
+##### ( ) User management (CRUD)
+##### ( ) Exercise attempt logging
+##### ( ) Progress persistence
 #### [ ] Advanced Gamification
-##### 15+ badges with progression tiers
-##### Class leaderboards (opt-in)
-##### Daily challenges
-##### Avatar customization
+##### ( ) 15+ badges with progression tiers
+##### ( ) Class leaderboards (opt-in)
+##### ( ) Daily challenges
+##### ( ) Avatar customization
 #### [ ] Teacher Tools
-##### Create custom assignments
-##### Set due dates and reminders
-##### Bulk student import (CSV)
-##### Class performance heatmaps
+##### ( ) Create custom assignments
+##### ( ) Set due dates and reminders
+##### ( ) Bulk student import (CSV)
+##### ( ) Class performance heatmaps
 #### [ ] Enhanced Exercises
-##### 100+ total questions across all types
-##### Audio pronunciation support
-##### Contextual hints
-##### Explanation after incorrect answers
+##### ( ) 100+ total questions across all types
+##### ( ) Audio pronunciation support
+##### ( ) Contextual hints
+##### ( ) Explanation after incorrect answers
 
 ### Phase 3: Intelligence Layer
 #### [ ] Adaptive Learning
-##### Difficulty auto-adjustment based on accuracy
-##### Skill gap detection algorithm
-##### Personalized exercise recommendations
-##### Spaced repetition for weak areas
+##### ( ) Difficulty auto-adjustment based on accuracy
+##### ( ) Skill gap detection algorithm
+##### ( ) Personalized exercise recommendations
+##### ( ) Spaced repetition for weak areas
 #### [ ] Analytics Dashboard
-##### Time-series performance graphs
-##### Skill mastery breakdown
-##### Predictive insights (at-risk students)
-##### Export reports (PDF/CSV)
+##### ( ) Time-series performance graphs
+##### ( ) Skill mastery breakdown
+##### ( ) Predictive insights (at-risk students)
+##### ( ) Export reports (PDF/CSV)
 #### [ ] Parent Portal Enhancement
-##### Weekly email summaries
-##### Practice reminders via SMS/email
-##### Suggested offline activities
-##### Communication with teachers
+##### ( ) Weekly email summaries
+##### ( ) Practice reminders via SMS/email
+##### ( ) Suggested offline activities
+##### ( ) Communication with teachers
 
 ### Phase 4: Scale & Polish
 #### [ ] Performance Optimization
-##### Redis caching layer
-##### Database query optimization
-##### Lazy loading & code splitting
-##### CDN for static assets
+##### ( ) Redis caching layer
+##### ( ) Database query optimization
+##### ( ) Lazy loading & code splitting
+##### ( ) CDN for static assets
 #### [ ] Accessibility (WCAG 2.1 AA)
-##### Screen reader support
-##### Keyboard navigation
-##### High contrast mode
-##### Text-to-speech for questions
+##### ( ) Screen reader support
+##### ( ) Keyboard navigation
+##### ( ) High contrast mode
+##### ( ) Text-to-speech for questions
 #### [ ] Content Expansion
-##### 300+ exercises total
-##### Multi-level difficulty (3 tiers)
-##### Video tutorials
-##### Printable worksheets
+##### ( ) 300+ exercises total
+##### ( ) Multi-level difficulty (3 tiers)
+##### ( ) Video tutorials
+##### ( ) Printable worksheets
 #### [ ] Integrations
-##### Google Classroom sync
-##### Canvas LMS integration
-##### Clever SSO
-##### Stripe for subscriptions
+##### ( ) Google Classroom sync
+##### ( ) Canvas LMS integration
+##### ( ) Clever SSO
+##### ( ) Stripe for subscriptions
 
 
 ## Contributing
