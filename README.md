@@ -327,6 +327,3 @@ Email: Khalil.ib.Mohamed@gmail.com
 Issues: GitHub Issues
 
 Built with ❤️ for educators and students
-
-
-
