@@ -110,8 +110,10 @@ npm run db:seed
 npm run dev
 
 Visit http://localhost:3000 to see the app running.
+```
 
-Project Structure
+## Project Structure
+```
 phonicslearn/
 ├── client/                 # React frontend
 │   ├── src/
@@ -136,178 +138,81 @@ phonicslearn/
 ├── docs/                  # Documentation
 ├── scripts/               # Build & deployment scripts
 └── tests/                 # E2E and integration tests
+```
+
+## Product Roadmap
+### Phase 1: MVP - CURRENT
+#### [x] Basic authentication (email/password)
+#### [x] Student dashboard with metrics
+#### [x] 5 core exercise types (10 questions each)
+#### [x] Points & streak tracking
+#### [x] Basic badge system
+#### [x] Teacher/parent view (read-only)
+#### [x] Responsive design
+
+### Phase 2: Core Enhancement 
+#### [ ] Database Integration
+##### ( ) PostgreSQL setup with Prisma
+##### ( ) User management (CRUD)
+##### ( ) Exercise attempt logging
+##### ( ) Progress persistence
+#### [ ] Advanced Gamification
+##### ( ) 15+ badges with progression tiers
+##### ( ) Class leaderboards (opt-in)
+##### ( ) Daily challenges
+##### ( ) Avatar customization
+#### [ ] Teacher Tools
+##### ( ) Create custom assignments
+##### ( ) Set due dates and reminders
+##### ( ) Bulk student import (CSV)
+##### ( ) Class performance heatmaps
+#### [ ] Enhanced Exercises
+##### ( ) 100+ total questions across all types
+##### ( ) Audio pronunciation support
+##### ( ) Contextual hints
+##### ( ) Explanation after incorrect answers
+
+### Phase 3: Intelligence Layer
+#### [ ] Adaptive Learning
+##### ( ) Difficulty auto-adjustment based on accuracy
+##### ( ) Skill gap detection algorithm
+##### ( ) Personalized exercise recommendations
+##### ( ) Spaced repetition for weak areas
+#### [ ] Analytics Dashboard
+##### ( ) Time-series performance graphs
+##### ( ) Skill mastery breakdown
+##### ( ) Predictive insights (at-risk students)
+##### ( ) Export reports (PDF/CSV)
+#### [ ] Parent Portal Enhancement
+##### ( ) Weekly email summaries
+##### ( ) Practice reminders via SMS/email
+##### ( ) Suggested offline activities
+##### ( ) Communication with teachers
+
+### Phase 4: Scale & Polish
+#### [ ] Performance Optimization
+##### ( ) Redis caching layer
+##### ( ) Database query optimization
+##### ( ) Lazy loading & code splitting
+##### ( ) CDN for static assets
+#### [ ] Accessibility (WCAG 2.1 AA)
+##### ( ) Screen reader support
+##### ( ) Keyboard navigation
+##### ( ) High contrast mode
+##### ( ) Text-to-speech for questions
+#### [ ] Content Expansion
+##### ( ) 300+ exercises total
+##### ( ) Multi-level difficulty (3 tiers)
+##### ( ) Video tutorials
+##### ( ) Printable worksheets
+#### [ ] Integrations
+##### ( ) Google Classroom sync
+##### ( ) Canvas LMS integration
+##### ( ) Clever SSO
+##### ( ) Stripe for subscriptions
 
 
-Product Roadmap
-Phase 1: MVP - CURRENT
-[x] Basic authentication (email/password)
-[x] Student dashboard with metrics
-[x] 5 core exercise types (10 questions each)
-[x] Points & streak tracking
-[x] Basic badge system
-[x] Teacher/parent view (read-only)
-[x] Responsive design
-Phase 2: Core Enhancement 
-[ ] Database Integration
-PostgreSQL setup with Prisma
-User management (CRUD)
-Exercise attempt logging
-Progress persistence
-[ ] Advanced Gamification
-15+ badges with progression tiers
-Class leaderboards (opt-in)
-Daily challenges
-Avatar customization
-[ ] Teacher Tools
-Create custom assignments
-Set due dates and reminders
-Bulk student import (CSV)
-Class performance heatmaps
-[ ] Enhanced Exercises
-100+ total questions across all types
-Audio pronunciation support
-Contextual hints
-Explanation after incorrect answers
-Phase 3: Intelligence Layer
-[ ] Adaptive Learning
-Difficulty auto-adjustment based on accuracy
-Skill gap detection algorithm
-Personalized exercise recommendations
-Spaced repetition for weak areas
-[ ] Analytics Dashboard
-Time-series performance graphs
-Skill mastery breakdown
-Predictive insights (at-risk students)
-Export reports (PDF/CSV)
-[ ] Parent Portal Enhancement
-Weekly email summaries
-Practice reminders via SMS/email
-Suggested offline activities
-Communication with teachers
-Phase 4: Scale & Polish
-[ ] Performance Optimization
-Redis caching layer
-Database query optimization
-Lazy loading & code splitting
-CDN for static assets
-[ ] Accessibility (WCAG 2.1 AA)
-Screen reader support
-Keyboard navigation
-High contrast mode
-Text-to-speech for questions
-[ ] Content Expansion
-300+ exercises total
-Multi-level difficulty (3 tiers)
-Video tutorials
-Printable worksheets
-[ ] Integrations
-Google Classroom sync
-Canvas LMS integration
-Clever SSO
-Stripe for subscriptions
-
-Database Schema (Core Tables)
--- Users
-users (
-  id UUID PRIMARY KEY,
-  email VARCHAR UNIQUE,
-  password_hash VARCHAR,
-  role ENUM('student', 'teacher', 'parent', 'admin'),
-  name VARCHAR,
-  grade INTEGER,
-  created_at TIMESTAMP,
-  updated_at TIMESTAMP
-)
-
--- Student Progress
-progress (
-  id UUID PRIMARY KEY,
-  user_id UUID REFERENCES users(id),
-  total_points INTEGER DEFAULT 0,
-  current_streak INTEGER DEFAULT 0,
-  longest_streak INTEGER DEFAULT 0,
-  exercises_completed INTEGER DEFAULT 0,
-  accuracy_rate DECIMAL(5,2),
-  last_activity TIMESTAMP
-)
-
--- Exercises
-exercises (
-  id UUID PRIMARY KEY,
-  type ENUM('syllable', 'rhyme', 'blend', 'sight', 'suffix'),
-  question TEXT,
-  options JSONB,
-  correct_answer INTEGER,
-  difficulty INTEGER (1-3),
-  explanation TEXT,
-  tags VARCHAR[]
-)
-
--- Attempt History
-attempts (
-  id UUID PRIMARY KEY,
-  user_id UUID REFERENCES users(id),
-  exercise_id UUID REFERENCES exercises(id),
-  selected_answer INTEGER,
-  is_correct BOOLEAN,
-  time_spent_seconds INTEGER,
-  created_at TIMESTAMP
-)
-
--- Badges
-badges (
-  id UUID PRIMARY KEY,
-  name VARCHAR,
-  description TEXT,
-  icon VARCHAR,
-  requirement_type VARCHAR,
-  requirement_value INTEGER
-)
-
--- User Badges (join table)
-user_badges (
-  user_id UUID REFERENCES users(id),
-  badge_id UUID REFERENCES badges(id),
-  earned_at TIMESTAMP,
-  PRIMARY KEY (user_id, badge_id)
-)
-
--- Classes (for teachers)
-classes (
-  id UUID PRIMARY KEY,
-  name VARCHAR,
-  teacher_id UUID REFERENCES users(id),
-  grade INTEGER,
-  year INTEGER
-)
-
--- Class Enrollment
-enrollments (
-  student_id UUID REFERENCES users(id),
-  class_id UUID REFERENCES classes(id),
-  enrolled_at TIMESTAMP,
-  PRIMARY KEY (student_id, class_id)
-)
-
--- Assignments
-assignments (
-  id UUID PRIMARY KEY,
-  class_id UUID REFERENCES classes(id),
-  title VARCHAR,
-  description TEXT,
-  exercise_ids UUID[],
-  due_date TIMESTAMP,
-  created_at TIMESTAMP
-)
-
-
-Testing Strategy
-Unit Tests: Jest + React Testing Library (target: 80% coverage)
-Integration Tests: Supertest for API endpoints
-E2E Tests: Playwright for critical user flows
-Performance Tests: Lighthouse CI (target: 90+ score)
-
-Contributing
+## Contributing
 We welcome contributions!
 Fork the repository
 Create a feature branch (git checkout -b feature/AmazingFeature)
@@ -315,15 +220,15 @@ Commit your changes (git commit -m 'Add AmazingFeature')
 Push to the branch (git push origin feature/AmazingFeature)
 Open a Pull Request
 
-License
+## License
 This project is licensed under the Apache 2.0 License
 
-Acknowledgments
+## Acknowledgments
 Inspired by evidence-based literacy research from Reading Rockets
 Exercise content aligned with Common Core State Standards
 
-Contact & Support
+## Contact & Support
 Email: Khalil.ib.Mohamed@gmail.com
 Issues: GitHub Issues
 
-Built with ❤️ for educators and students
+# Built with ❤️ for educators and students
