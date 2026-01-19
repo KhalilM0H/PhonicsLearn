@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Trophy, Star, Flame, BookOpen, BarChart3, Users, Award, Target, TrendingUp } from 'lucide-react';
 
 // Types
@@ -70,6 +70,7 @@ const BADGES = [
 export default function PhonicsLearningPlatform() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [loginRole, setLoginRole] = useState<UserRole>('student');
   const [progress, setProgress] = useState<Progress>({
     studentId: '',
@@ -105,22 +106,24 @@ export default function PhonicsLearningPlatform() {
   };
 
   // Handle login
-  const handleLogin = () => {
-    if (loginEmail) {
-      const user: User = {
-        id: Math.random().toString(36).substr(2, 9),
-        name: loginEmail.split('@')[0],
-        email: loginEmail,
-        role: loginRole,
-        grade: loginRole === 'student' ? 7 : undefined,
-      };
-      setCurrentUser(user);
-      if (loginRole === 'student') {
-        setProgress(prev => ({ ...prev, studentId: user.id }));
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
+      
+      const data = await response.json();
+      if (response.ok) {
+        setCurrentUser(data.user);
+        localStorage.setItem('token', data.token);
       }
+    } catch (error) {
+      console.error('Login failed:', error);
     }
   };
-
+  
   // Handle answer submission
   const handleSubmitAnswer = () => {
     if (selectedAnswer === null || !currentExercise) return;
@@ -171,7 +174,7 @@ export default function PhonicsLearningPlatform() {
   // Login Screen
   if (!currentUser) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="h-dvh bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-600 rounded-full mb-4">
@@ -192,7 +195,16 @@ export default function PhonicsLearningPlatform() {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               />
             </div>
-
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+              <input
+                type="password"
+                value={loginPassword}
+                onChange={(e) => setLoginPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              />
+            </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">I am a...</label>
               <div className="grid grid-cols-3 gap-2">
@@ -202,7 +214,7 @@ export default function PhonicsLearningPlatform() {
                     onClick={() => setLoginRole(role)}
                     className={`px-4 py-2 rounded-lg font-medium capitalize transition-colors ${
                       loginRole === role
-                        ? 'bg-indigo-600 text-white'
+                        ? 'bg-indigo-600 text-indigo-500'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
@@ -214,7 +226,7 @@ export default function PhonicsLearningPlatform() {
 
             <button
               onClick={handleLogin}
-              className="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+              className="w-full bg-indigo-600 text-black py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
             >
               Sign In
             </button>
@@ -228,7 +240,7 @@ export default function PhonicsLearningPlatform() {
 
   // Main Dashboard
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="h-dvh bg-gray-50">
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">

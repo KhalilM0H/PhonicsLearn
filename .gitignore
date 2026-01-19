@@ -158,3 +158,5 @@ dist-ssr
 *.sln
 *.sw?
 >>>>>>> c6b4072 (Initial commit)
+
+/src/generated/prisma
