@@ -29,10 +29,17 @@ pool.on('error', (err) => {
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',           // Local development
+    'http://localhost:5173',           // Vite dev server
+    'https://phonics-learn.vercel.app/', // Your production frontend
+    'https://*.vercel.app'             // Any Vercel preview deployments
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
-// ... rest of your code
 
 // Login endpoint
 app.post('/api/auth/login', async (req, res) => {
