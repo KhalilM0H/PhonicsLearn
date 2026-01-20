@@ -160,3 +160,4 @@ dist-ssr
 >>>>>>> c6b4072 (Initial commit)
 
 /src/generated/prisma
+.vercel
