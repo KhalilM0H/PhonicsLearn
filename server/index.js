@@ -1,3 +1,4 @@
+// Load environment variables from .env file
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -10,8 +11,10 @@ import pg from 'pg';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+// Initialize Express application
 const app = express();
 
+// Configure PostgreSQL connection pool
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? {
@@ -22,13 +25,17 @@ const pool = new pg.Pool({
   connectionTimeoutMillis: 2000,
 });
 
+// Handle unexpected errors from the connection pool
 pool.on('error', (err) => {
   console.error('Unexpected error on idle client', err);
 });
 
+// Initialize Prisma Client with PostgreSQL adapter
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
+// Configure CORS (Cross-Origin Resource Sharing)
+// This allows our frontend to make requests to this backend
 app.use(cors({
   origin: [
     'http://localhost:3000',           // Local development
